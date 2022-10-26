@@ -6,6 +6,7 @@ const { isEmpty,validLogoLink } = require("../validations/validators")
 // ========================== CREATE COLLEGE  post/functionup/colleges =============================
 
 let createCollege = async function (req, res) {
+
     try {
 
         let data = req.body;
@@ -39,7 +40,7 @@ let createCollege = async function (req, res) {
         }
        
         if (!isEmpty(logoLink)) return res.status(400).send({ status: false, msg: "logolink is empty" });
-       if(!validLogoLink(logoLink))
+        if(!validLogoLink(logoLink))
         return res.status(400).send({status:false,msg:"logolink is invalid"});
         const checkLogoLink = await collegeModels.findOne({ logoLink: logoLink });
         if (checkLogoLink) {
@@ -58,6 +59,7 @@ let createCollege = async function (req, res) {
 // ============================ GET COLLEGE DETAILS get/functionup/collegeDetails ===========================
 
 let getCollege = async function (req, res) {
+    res.setHeader('Access-Control-Allow-Origin','*')
     try {
         let data = req.query.collegeName;
         //data=data.toUpperCase();
